@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.View
 import android.widget.ListView
 import android.widget.ProgressBar
-import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -125,16 +124,16 @@ class MainActivity : AppCompatActivity(), ItemRowListener {
                 val map = currentItem.getValue() as HashMap<String, Any>
                 //key will return Firebase ID
                 todoItem.objectId = currentItem.key
-                todoItem.done = map.get("done") as Boolean?
-                todoItem.itemText = map.get("itemText") as String?
-                toDoItemList!!.add(todoItem);
+                todoItem.done = map["done"] as Boolean?
+                todoItem.itemText = map["itemText"] as String?
+                toDoItemList!!.add(todoItem)
             }
         }
         //alert adapter that has changed
         adapter.notifyDataSetChanged()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 200) {
             if (resultCode == Activity.RESULT_OK) {
                 getData()
